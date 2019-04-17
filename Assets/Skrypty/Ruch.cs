@@ -10,7 +10,7 @@ public class Ruch : MonoBehaviour
     public Animator anim;
 
     bool naZiemi = false;
-    float promienWykrywaczaZiemi = 0.2f;
+    float promienWykrywaczaZiemi = 0.5f;
     public LayerMask kontrolerKolizjiZiemi;
     public Transform wykrywaczZiemi;
     // Start is called before the first frame update
@@ -26,13 +26,13 @@ public class Ruch : MonoBehaviour
         anim.SetFloat("PredkoscRuchu", Mathf.Abs(rb.velocity.x));
         anim.SetBool("Skok", !naZiemi);
 
-        print("rb.velocity.x = " + rb.velocity.x);
+   
 
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(Input.GetKey(KeyCode.D))
+        if(Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             Vector2 move = new Vector2(przyszpieszenie * Time.deltaTime, 0);
             rb.AddForce(move);
@@ -44,7 +44,7 @@ public class Ruch : MonoBehaviour
     
         }
 
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             Vector2 move = new Vector2(-przyszpieszenie * Time.deltaTime, 0);
             rb.AddForce(move);

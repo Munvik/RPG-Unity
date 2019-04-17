@@ -5,15 +5,49 @@ using UnityEngine;
 public class KontrolaKamery : MonoBehaviour
 {
     public Transform gracz;
-    // Start is called before the first frame update
+    GameObject kolider;
+
+    [SerializeField]
+    float minX;
+    [SerializeField]
+    float maxX;
+
+    [SerializeField]
+    float minY;
+    [SerializeField]
+    float maxY;
+    //coll - zmienna do obsługi kamery, aby kamera nie wyszla poza mape.
+    //obsluguje ja skrypt KontrolaKolideraKamery.
+    public bool coll = true;
+    const float kameraOffset = 5f;
+  
     void Start()
     {
-        
+        kolider = gameObject.transform.Find("KamKolider").gameObject;
+
+        if (kolider)
+        {
+            Camera camera = GetComponent<Camera>();
+            float height = camera.orthographicSize * 2f;
+            float width = height * camera.aspect;
+
+            kolider.transform.localScale = new Vector3(width, height, kolider.transform.localScale.z);
+        }
+
+        else
+        {
+            Debug.Log("Nie znaleziono KamKolider !");
+        }
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = new Vector3(gracz.position.x, gracz.position.y, transform.position.z);
+
+        transform.position = new Vector3(Mathf.Clamp(gracz.position.x, minX, maxX), Mathf.Clamp(gracz.position.y, minY, maxY), transform.position.z);
+
+        
+
     }
 }
