@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 using UnityEngine.EventSystems;
 
 public class ObslugaPrzenoszeniePrzedmiotu : MonoBehaviour, IDragHandler, IEndDragHandler
@@ -17,10 +19,9 @@ public class ObslugaPrzenoszeniePrzedmiotu : MonoBehaviour, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+        GetComponent<GraphicRaycaster>().
 
-        if (hit)
-            Debug.Log("You selected the " + hit.transform.name); // ensure you picked right object
+
 
 
         GameObject panel = transform.Find("Panel").gameObject;
